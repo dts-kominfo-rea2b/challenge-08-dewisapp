@@ -36,36 +36,32 @@
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
       function fnClickHandler(toDoItem) {
-        output.append(createList(toDoItem));
+        if (
+          toDoItem?.type === "click" ||
+          toDoItem?.key === "Enter" ||
+          toDoItem?.which === 13
+        ) {
+          const txtList = document.createElement("li");
+          txtList.textContent = input.value;
+          txtList.className = "border";
+          output.append(txtList);
+          input.value = "";
+        }
       }
 
-      function createList(item) {
-        let txtList = document.createElement("li");
-        txtList.innerHTML = item;
-        txtList.className = "border";
-        return txtList;
+      function fnInputHandler(e) {
+        if (e?.target?.value?.length > 0) {
+          input.value = event?.target?.value;
+        }
       }
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      button.addEventListener("click", () => {
-        if (input.value) {
-          const inputValue = input.value;
-          fnClickHandler(inputValue);
-          input.value = "";
-        } else {
-          alert("You must fill the blank!");
-        }
-      });
+      button.addEventListener("click", fnClickHandler);
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
-      input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" || e.target.key === "Submit") {
-          const inputValue = input.value;
-          fnClickHandler(inputValue);
-          input.value = "";
-        }
-      });
+      input.addEventListener("keyup", fnInputHandler);
+      input.addEventListener("keypress", fnClickHandler);
     </script>
   </body>
 </html>
