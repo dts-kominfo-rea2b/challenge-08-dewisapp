@@ -40,7 +40,7 @@
       }
 
       function createList(item) {
-        const txtList = document.createElement("li");
+        let txtList = document.createElement("li");
         txtList.innerHTML = item;
         txtList.className = "border";
         return txtList;
@@ -60,7 +60,7 @@
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
       input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" || e.target.key === "Submit") {
           const inputValue = input.value;
           fnClickHandler(inputValue);
           input.value = "";
